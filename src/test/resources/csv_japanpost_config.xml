@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config [
+  <!ENTITY sup "post_data">
+  <!ENTITY appname "net._instanceof.batch.file2sqlite.">
+]>
+<config>
+  <public_env>
+    <!-- 文字コードを指定 -->
+    <property key="CSV_CHAR_SET"      value="Windows-31J" />
+    <!-- 区切り文字を指定 tsvの場合は"\t"を設定 -->
+    <property key="CSV_COLUMN_TOKEN"  value="," />
+    <!-- Sqliteのクラスを指定 (他のは未作成) -->
+    <property key="DATA_BASE_MANAGER" value="&appname;db.impl.DataBaseManagerSqlite" />
+    <!-- sqliteの一時ファイル作成ディレクトリ -->
+    <property key="DB_TEMP_PATH"      value="./target/sqlite/temp" />
+    <!-- sqliteファイルの出力先 -->
+    <property key="DB_FILE_PATH"      value="./target/sqlite" />
+    <!-- sqliteファイル名 -->
+    <property key="DB_FILE_NAME"      value="&sup;.sqlite" />
+    <!-- CSVの1行目がヘッダの場合はtrue -->
+    <property key="CSV_HEAD_PARSE"    value="false" />
+  </public_env>
+  <input_source>
+    <!-- class : csvの取込クラスを指定 (固定長は未サポート) -->
+    <data_importer class='&appname;impl.CSVDataImporter'>
+      <!--
+        id         = 識別子 fileタグは複数設定可能なので一意に設定する事
+        path       = csvファイルのパス
+        src        = csvファイル名
+        table      = sqliteのテーブル名
+        csv_header = ヘッダ値が未設定の場合のヘッダ値をカンマ区切り
+                     ※ CSV_HEAD_PARSE = trueの場合は無視する
+      -->
+      <file
+        id          = '&sup;'
+        path        = './src/test/resources'
+        src         = '13tokyo.csv'
+        table       = '&sup;'
+        csv_header  = 'A ,B ,C ,D ,E ,F ,G ,H ,I ,J ,K ,L ,M ,N ,O'
+      >
+        <!--
+         CREATE TABLE / CREATE INDEXを記載します
+         idは固定します
+         値はcsv_headerの順番で登録されます
+        -->
+        <schema>
+            CREATE TABLE &sup; (
+              id    INTEGER PRIMARY KEY AUTOINCREMENT,
+              A     TEXT, /* A ：  */
+              B     TEXT, /* B ：  */
+              C     TEXT, /* C ：  */
+              D     TEXT, /* D ：  */
+              E     TEXT, /* E ：  */
+              F     TEXT, /* F ：  */
+              G     TEXT, /* G ：  */
+              H     TEXT, /* H ：  */
+              I     TEXT, /* I ：  */
+              J     TEXT, /* J ：  */
+              K     TEXT, /* K ：  */
+              L     TEXT, /* L ：  */
+              M     TEXT, /* M ：  */
+              N     TEXT, /* N ：  */
+              O     TEXT  /* O ：  */
+            );
+            CREATE INDEX &sup;_idx_01 on &sup;(A);
+        </schema>
+      </file>
+    </data_importer>
+  </input_source>
+</config>

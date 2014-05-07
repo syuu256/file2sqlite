@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config [
+  <!ENTITY sup "post_data_fixd">
+  <!ENTITY appname "net._instanceof.batch.file2sqlite.">
+]>
+<config>
+  <public_env>
+    <property key="CSV_CHAR_SET"      value="Windows-31J" />
+    <property key="CSV_COLUMN_TOKEN"  value="\t" />
+    <property key="DATA_BASE_MANAGER" value="&appname;db.impl.DataBaseManagerSqlite" />
+    <property key="DB_TEMP_PATH"      value="./target/sqlite/temp" />
+    <property key="DB_FILE_PATH"      value="./target/sqlite" />
+    <property key="DB_FILE_NAME"      value="&sup;.sqlite" />
+    <!-- 固定長の場合はソース修正してください -->
+    <property key="DATA_LEN.&sup;"    value="5,5,7,6,18,51,24,68,1,1,1,1,1,1" />
+  </public_env>
+  <input_source name='&sup;'>
+    <data_importer class='&appname;impl.FixedLengthDataImporter'>
+      <file id='&sup;' path='./src/test/resources' src='13tokyo.prn' table='&sup;' csv_header='A ,B ,C ,D ,E ,F ,G ,H ,I ,J ,K ,L ,M ,N ,O' >
+        <schema>
+            CREATE TABLE &sup; (
+              id    INTEGER PRIMARY KEY AUTOINCREMENT,
+              A     TEXT, /* A ：  */
+              B     TEXT, /* B ：  */
+              C     TEXT, /* C ：  */
+              D     TEXT, /* D ：  */
+              E     TEXT, /* E ：  */
+              F     TEXT, /* F ：  */
+              G     TEXT, /* G ：  */
+              H     TEXT, /* H ：  */
+              I     TEXT, /* I ：  */
+              J     TEXT, /* J ：  */
+              K     TEXT, /* K ：  */
+              L     TEXT, /* L ：  */
+              M     TEXT, /* M ：  */
+              N     TEXT, /* N ：  */
+              O     TEXT  /* O ：  */
+            );
+            CREATE INDEX &sup;_idx_01 on &sup;(A);
+        </schema>
+      </file>
+    </data_importer>
+  </input_source>
+</config>

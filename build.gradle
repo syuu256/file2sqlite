@@ -1,0 +1,38 @@
+// 2014/01/30 syuu256 動かないんで放置 mevan使ってください
+// gradle clean
+// gradle assemble
+// gradle check
+// gradle build
+// gradle javadoc
+apply plugin: 'java'
+//apply plugin: 'checkstyle'
+//apply plugin: 'findbugs'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+  mavenCentral()
+  maven {
+    url "http://repository.opencastproject.org/nexus/content/repositories/public/"
+  }
+}
+// runtimeは多分足りない。pom.xml見てください
+dependencies {
+  compile(
+    [group: 'javax', name: 'javaee-api', version: '6.0'],
+  )
+  runtime(
+    [group: 'org.apache.xbean', name: 'xbean-spring', version: '3.16'],
+  )
+  testCompile(
+    [group: 'junit', name: 'junit', version: '4.11'],
+  )
+  testRuntime(
+  )
+}
+
+test {
+  systemProperties['java.naming.provider.url'] = 'jndi_local.xml'
+}
